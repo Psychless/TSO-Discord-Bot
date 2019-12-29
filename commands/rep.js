@@ -1,4 +1,5 @@
 const log = require("../logging.js");
+const constants = require("../constants.js");
 const Discord = require("discord.js");
 const fs = require("fs");
 
@@ -25,6 +26,6 @@ exports.run = (client, message, args, config) => {
             rep[user.id] = 0;
         }
 
-        message.channel.send(`${user.username} has ${rep[user.id]} rep.`);
+        message.channel.send(`${user.username} has ${rep[user.id]} ${constants.REP}.`);
     });    
 }

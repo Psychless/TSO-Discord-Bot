@@ -1,7 +1,7 @@
 const log = require("../logging.js");
+const constants = require("../constants.js")
 const Discord = require("discord.js");
 const fs = require("fs");
-const constants = require("../constants.js")
 
 exports.run = (client, message, args, config) => {
     return new Promise((resolve, reject) => {
@@ -32,11 +32,11 @@ exports.run = (client, message, args, config) => {
         }
 
         if (rep[message.author.id] <= 0) {
-            return message.channel.send(`You do not have enough rep to fight.`);
+            return message.channel.send(`You do not have enough ${constants.REP} to fight.`);
         }
 
         if (rep[user.id] <= 0) {
-            return message.channel.send(`${user.username} does not have enough rep to fight.`);
+            return message.channel.send(`${user.username} does not have enough ${constants.REP} to fight.`);
         }
 
         const rand = Math.random() < 0.5;

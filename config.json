@@ -3,6 +3,7 @@
 	"cmdkey": "$",
 	"topUsers": 10,
 	"embedColour": "0x0000ff",
+	"helpEmbedColour": "0x7289da",
 	"ticketChannel": "bot-tickets",
 	"reminderChannel": "bot-reminder"
 }

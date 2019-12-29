@@ -25,7 +25,7 @@ exports.run = (client, message, args, config) => {
         }
 
         if (rep[message.author.id] < prices.tickets[ticket]) {
-            return message.channel.send(`You do not have enough rep to buy this ticket. Price: \`${prices.tickets[ticket]}\`, your rep: \`${rep[message.author.id]}\``);
+            return message.channel.send(`You do not have enough ${constants.REP} to buy this ticket. Price: \`${prices.tickets[ticket]}\`, your ${constants.REP}: \`${rep[message.author.id]}\``);
         }
 
         rep[message.author.id] -= prices.tickets[ticket]
@@ -41,8 +41,7 @@ exports.run = (client, message, args, config) => {
         .setColor(config.embedColour);
 
         supportChannel.send({embed});
-prices.tickets[ticket]
-        message.channel.send(`Ticket bought for \`${prices.tickets[ticket]}\` rep. An admin will be in contact with you shortly.`);
+        message.channel.send(`Ticket bought for \`${prices.tickets[ticket]}\` ${constants.REP}. An admin will be in contact with you shortly.`);
 
         fs.writeFileSync(`./rep.json`, JSON.stringify(rep, null, 4));
     });    

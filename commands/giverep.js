@@ -1,4 +1,5 @@
 const log = require("../logging.js");
+const constants = require("../constants.js");
 const Discord = require("discord.js");
 const fs = require("fs");
 
@@ -36,7 +37,7 @@ exports.run = (client, message, args, config) => {
     
             rep[user.id] += number;
     
-            message.channel.send(`Added ${number} rep to ${user.username}. Total rep: ${rep[user.id]}.`);
+            message.channel.send(`Added ${number} ${constants.REP} to ${user.username}. Total ${constants.REP}: ${rep[user.id]}.`);
         }
         else {
             const roleMembers = role.members.size;
@@ -50,7 +51,7 @@ exports.run = (client, message, args, config) => {
                 rep[member.id] += addition;
             }
 
-            message.channel.send(`Added ${addition * roleMembers} rep total to ${role}.`);
+            message.channel.send(`Added ${addition * roleMembers} ${constants.REP} total to ${role}.`);
         }
 
         fs.writeFileSync(`./rep.json`, JSON.stringify(rep, null, 4));

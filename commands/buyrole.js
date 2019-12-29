@@ -32,13 +32,13 @@ exports.run = (client, message, args, config) => {
         }
 
         if (rep[message.author.id] < prices.roles[role.name]) {
-            return message.channel.send(`You do not have enough rep to buy this role. Price: \`${prices.roles[role.name]}\`, your rep: \`${rep[message.author.id]}\``);
+            return message.channel.send(`You do not have enough ${constants.REP} to buy this role. Price: \`${prices.roles[role.name]}\`, your ${constants.REP}: \`${rep[message.author.id]}\``);
         }
 
         rep[message.author.id] -= prices.roles[role.name];
         message.member.addRole(role);
 
-        message.channel.send(`Role bought for \`${prices.roles[role.name]}\` rep.`);
+        message.channel.send(`Role bought for \`${prices.roles[role.name]}\` ${constants.REP}.`);
 
         fs.writeFileSync(`./rep.json`, JSON.stringify(rep, null, 4));
     });    

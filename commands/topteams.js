@@ -1,24 +1,7 @@
 const log = require("../logging.js");
+const constants = require("../constants.js")
 const Discord = require("discord.js");
 const fs = require("fs");
-
-function sortRep(users) {
-    let temp = [];
-    let inserted = false;
-    for (const user of users) {
-        for (const [i, elem] of temp.entries()) {
-            if (user.rep < elem.rep) {
-                temp.splice(i, 0, user);
-                inserted = true;
-                break;
-            }
-        }
-        if (!inserted) {
-            temp.push(user);
-        }
-    }
-    return temp;
-}
 
 exports.run = (client, message, args, config) => {
     return new Promise((resolve, reject) => {
@@ -40,17 +23,17 @@ exports.run = (client, message, args, config) => {
             squads.push(tempSquad);
         }
 
-        let sorted = sortRep(squads).reverse();
-        if (sorted.length > config.topUsers) {
-            sorted = sorted.slice(0, config.topUsers);
+        let sortedSquads = squads.sort((a, b) => (a.rep > b.rep) ? -1 : 1)
+        if (sortedSquads.length > config.topUsers) {
+            sortedSquads = sortedSquads.slice(0, config.topUsers);
         }
 
         let msg = ``;
-        for (const [i, elem] of sorted.entries()) {
+        for (const [i, elem] of sortedSquads.entries()) {
             msg += `${i + 1} - ${elem.team}: ${elem.rep}\n`;
         }
 
-        const embed = new Discord.RichEmbed().setTitle(`Top rep`).setDescription(msg).setColor(config.embedColour);
+        const embed = new Discord.RichEmbed().setTitle(constants.TOP_TEAM_REP_LIST_TITLE).setDescription(msg).setColor(config.embedColour);
         message.channel.send({embed});
     });    
 }

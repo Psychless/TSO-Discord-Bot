@@ -1,25 +1,7 @@
 const log = require("../logging.js");
+const constants = require("../constants.js")
 const Discord = require("discord.js");
 const fs = require("fs");
-const constants = require("../constants.js")
-
-function sortRep(users) {
-    let temp = [];
-    let inserted = false;
-    for (const user of users) {
-        for (const [i, elem] of temp.entries()) {
-            if (user.rep < elem.rep) {
-                temp.splice(i, 0, user);
-                inserted = true;
-                break;
-            }
-        }
-        if (!inserted) {
-            temp.push(user);
-        }
-    }
-    return temp;
-}
 
 exports.run = (client, message, args, config) => {
     return new Promise((resolve, reject) => {
@@ -38,7 +20,7 @@ exports.run = (client, message, args, config) => {
             users.push({user: key, rep: val});
         }
 
-        let sortedUsers = sortRep(users).reverse();
+        let sortedUsers = users.sort((a, b) => (a.rep > b.rep) ? -1 : 1);
         if (sortedUsers.length > config.topUsers) {
             sortedUsers = sortedUsers.slice(0, config.topUsers);
         }
@@ -52,7 +34,7 @@ exports.run = (client, message, args, config) => {
             msg += `${i + 1} - ${member.user.username}: **${elem.rep}**\n`;
         }
 
-        const embed = new Discord.RichEmbed().setTitle(constants.TOP_REP_LIST_TITLE).setDescription(msg).setColor(config.embedColour);
+        const embed = new Discord.RichEmbed().setTitle(constants.TOP_USR_REP_LIST_TITLE).setDescription(msg).setColor(config.embedColour);
         message.channel.send({embed});
 
         fs.writeFileSync(`./rep.json`, JSON.stringify(rep, null, 4));
