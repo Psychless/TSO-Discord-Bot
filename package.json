@@ -1,0 +1,23 @@
+{
+  "name": "alexanderrhain",
+  "version": "1.0.0",
+  "description": "A bot designed for alexanderrhain",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ivaneres/alexanderrhain.git"
+  },
+  "author": "Ivan Ereshchenko",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Ivaneres/alexanderrhain/issues"
+  },
+  "homepage": "https://github.com/Ivaneres/alexanderrhain#readme",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "node-schedule": "^1.3.2"
+  }
+}

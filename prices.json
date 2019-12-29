@@ -1,0 +1,10 @@
+{
+    "roles": {
+        "role-name": 100,
+        "other-role-name": 10
+    },
+    "tickets": {
+        "ticket1": 100,
+        "etc": 100
+    }
+}

@@ -1,0 +1,9 @@
+{
+	"clientKey": "your-bot-token",
+	"cmdkey": "!",
+	"winMessage": "wins 1 rep!",
+	"topUsers": 10,
+	"embedColour": "0x0000ff",
+	"ticketChannel": "bla",
+	"reminderChannel": "bla"
+}
