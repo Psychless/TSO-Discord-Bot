@@ -1,7 +1,13 @@
 {
     "roles": {
-        "role-name": 100,
-        "other-role-name": 10
+        "DJ": 150,
+        "Sovereign Apprentice": 10,
+        "Sovereign Genin": 100,
+        "Sovereign Chunin": 500,
+        "Sovereign Jonin": 1000,
+        "Sovereign Elite": 3000,
+        "Sovereign Noble": 10000,
+        "Sovereign God": 100000
     },
     "tickets": {
         "ticket1": 100,

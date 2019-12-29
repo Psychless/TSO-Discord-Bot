@@ -8,11 +8,14 @@ exports.run = (client, message, args, config) => {
             return;
         }
 
-        if (args.length !== 1) {
-            return message.channel.send(`Usage: ${config.cmdkey}rep @user`);
+        let user;
+        if (args.length === 1) {
+            user = message.mentions.users.first();
+        } else {
+            user = message.author;
         }
 
-        const user = message.mentions.users.first();
+         
         if (!user) {
             return message.channel.send(`Usage: ${config.cmdkey}rep @user`);
         }

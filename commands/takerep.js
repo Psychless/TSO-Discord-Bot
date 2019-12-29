@@ -34,7 +34,11 @@ exports.run = (client, message, args, config) => {
                 rep[user.id] = 0;
             }
     
+            // Take away rep (min 0)
             rep[user.id] -= number;
+            if(rep[user.id] <= 0){
+                rep[user.id] = 0;
+            }
     
             message.channel.send(`Took ${number} rep from ${user.username}. Total rep: ${rep[user.id]}.`);
         }

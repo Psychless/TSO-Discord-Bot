@@ -9,6 +9,7 @@ exports.run = (client, message, args, config) => {
 **${config.cmdkey}show @user** - shows registered data for the user
 **${config.cmdkey}giverep, takerep @user/@role number** - modifies the rep for the user or role(admin only)
 **${config.cmdkey}makerep @user number** - sets the rep for the user (admin only)
+**${config.cmdkey}rep** - shows your rep balance
 **${config.cmdkey}rep @user** - shows the user's rep balance
 **${config.cmdkey}fight @user** - fight the user for 1 rep
 **${config.cmdkey}toprep** - shows the users with the highest rep
