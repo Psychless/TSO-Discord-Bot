@@ -1,6 +1,7 @@
 const log = require("../logging.js");
 const Discord = require("discord.js");
 const fs = require("fs");
+const constants = require("../constants.js")
 
 exports.run = (client, message, args, config) => {
     return new Promise((resolve, reject) => {
@@ -43,12 +44,11 @@ exports.run = (client, message, args, config) => {
         if (rand) {
             rep[user.id]++;
             rep[message.author.id]--;
-            message.channel.send(`${user} ${config.winMessage}`);
-        }
-        else {
+            message.channel.send(`${user} ${constants.FIGHT_WIN_MSG}`);
+        } else {
             rep[user.id]--;
             rep[message.author.id]++;
-            message.channel.send(`${message.author} ${config.winMessage}`);
+            message.channel.send(`${message.author} ${constants.FIGHT_WIN_MSG}`);
         }
 
         fs.writeFileSync(`./rep.json`, JSON.stringify(rep, null, 4));

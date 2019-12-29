@@ -60,6 +60,6 @@ exports.run = (client, message, args, config) => {
 
         data[message.author.id] = args;
         fs.writeFileSync(`./data.json`, JSON.stringify(data, null, 4));
-        message.delete();
+        //message.delete();
     });    
 }

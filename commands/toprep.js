@@ -1,6 +1,7 @@
 const log = require("../logging.js");
 const Discord = require("discord.js");
 const fs = require("fs");
+const constants = require("../constants.js")
 
 function sortRep(users) {
     let temp = [];
@@ -48,10 +49,10 @@ exports.run = (client, message, args, config) => {
             if (!member) {
                 continue;
             }
-            msg += `${i + 1} - ${member.user.username}: ${elem.rep}\n`;
+            msg += `${i + 1} - ${member.user.username}: **${elem.rep}**\n`;
         }
 
-        const embed = new Discord.RichEmbed().setTitle(`Top rep`).setDescription(msg).setColor(config.embedColour);
+        const embed = new Discord.RichEmbed().setTitle(constants.TOP_REP_LIST_TITLE).setDescription(msg).setColor(config.embedColour);
         message.channel.send({embed});
 
         fs.writeFileSync(`./rep.json`, JSON.stringify(rep, null, 4));
