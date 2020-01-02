@@ -1,16 +1,20 @@
 {
     "roles": {
-        "DJ": 150,
-        "Sovereign Apprentice": 10,
-        "Sovereign Genin": 100,
-        "Sovereign Chunin": 500,
-        "Sovereign Jonin": 1000,
-        "Sovereign Elite": 3000,
-        "Sovereign Noble": 10000,
-        "Sovereign God": 100000
+        "1": { "role": "DJ", "price": 150 },
+        "2": { "role": "Sovereign Apprentice", "price": 10 },
+        "3": { "role": "Sovereign Genin", "price": 100 },
+        "4": { "role": "Sovereign Chunin", "price": 500 },
+        "5": { "role": "Sovereign Jonin", "price": 1000 },
+        "6": { "role": "Sovereign Elite", "price": 3000 },
+        "7": { "role": "Sovereign Noble", "price": 10000 },
+        "8": { "role": "Sovereign God", "price": 100000 }
     },
-    "tickets": {
-        "ticket1": 100,
-        "etc": 100
+    "loot": {
+        "1": { "name": "Minecraft Server Whitelist", "price": 100 },
+        "2": { "name": "Tournament Wildcard", "price": 1000 },
+        "3": { "name": "Sovereign Ticket", "price": 1000 },
+        "4": { "name": "One Month Discord Nitro", "price": 3000 },
+        "5": { "name": "Ten-Pounds RP Gift", "price": 6000 },
+        "6": { "name": "@Moderator", "price": 1000 }
     }
 }
