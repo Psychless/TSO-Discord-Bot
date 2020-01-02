@@ -14,17 +14,17 @@ exports.run = (client, message, args, config) => {
         }
 
         if (args.length !== 2) {
-            return message.channel.send(`Usage: ${config.cmdkey}makerep @user number`);
+            return message.channel.send(`Usage: ${config.cmdkey}setrep @user number`);
         }
 
         const user = message.mentions.users.first();
         if (!user) {
-            return message.channel.send(`Usage: ${config.cmdkey}makerep @user number`);
+            return message.channel.send(`Usage: ${config.cmdkey}setrep @user number`);
         }
 
         const number = parseInt(args[1]);
         if (isNaN(number)) {
-            return message.channel.send(`Usage: ${config.cmdkey}makerep @user number`);
+            return message.channel.send(`Usage: ${config.cmdkey}setrep @user number`);
         }
 
         const rep = JSON.parse(fs.readFileSync(`./rep.json`));
