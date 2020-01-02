@@ -36,13 +36,18 @@ exports.run = (client, message, args, config) => {
         const data = JSON.parse(fs.readFileSync(`./data.json`));
         const userData = data[user.id];
         if (!userData) {
-            return message.channel.send(`The user was not found in the database.`);
+            return message.channel.send(`The user has not yet registered`);
         }
 
         const embed = new Discord.RichEmbed()
-            .setTitle(userData[0].capitalise())
-            .setColor(config.embedColour)
-            .setDescription(`Lane: ${userData[1].capitalise()}\nRank: ${userData[2].capitalise()}\nTimezone: ${userData[3].toUpperCase()}\nSquad: ${userData[4].capitalise()}`);
+            .setAuthor(user.nickname, user.user.avatarURL)
+            .setDescription(`
+                IGN: ${userData[1]}
+                Role: ${userData[2]}
+                Rank: ${userData[3]}
+                Timezone: ${userData[4]}
+            `)
+            .setColor(config.embedColour);
 
         message.channel.send({embed});
     });    

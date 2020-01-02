@@ -1,4 +1,5 @@
 const log = require("../logging.js");
+const utils = require("../utils.js");
 const Discord = require("discord.js");
 const fs = require("fs");
 
@@ -8,7 +9,7 @@ exports.run = (client, message, args, config) => {
             return;
         }
 
-        if (!message.member.hasPermission(`ADMINISTRATOR`)) {
+        if (!utils.isDev) {
             return;
         }
 
@@ -40,7 +41,7 @@ exports.run = (client, message, args, config) => {
                 rep[user.id] = 0;
             }
     
-            message.channel.send(`Took ${number} rep from ${user.username}. Total rep: ${rep[user.id]}.`);
+            message.channel.send(`Took ${number} rep from ${user.username}. Total rep: ${rep[user.id]}`);
         }
         else {
             const roleMembers = role.members.size;

@@ -1,12 +1,12 @@
-module.exports = Object.freeze({
+module.exports = ({
     REP: "rep",
 
     // MSG WINDOW TITLES
-    TOP_USR_REP_LIST_TITLE: `Top user ${this.REP} list`,
-    TOP_TEAM_REP_LIST_TITLE: `Top squad ${this.REP} list`,
+    TOP_USR_REP_LIST_TITLE: `Top user rep list`,
+    TOP_TEAM_REP_LIST_TITLE: `Top squad rep list`,
     ROLE_SHOP_TITLE: `Role store`,
     LOOT_SHOP_TITLE: `Loot store`,
 
     // Misc
-    FIGHT_WIN_MSG: `wins 1 ${this.REP}!`
+    FIGHT_WIN_MSG: `wins 1 rep!`
 });

@@ -1,4 +1,5 @@
 const log = require("../logging.js");
+const utils = require("../utils.js");
 const constants = require("../constants.js");
 const Discord = require("discord.js");
 const fs = require("fs");
@@ -9,7 +10,7 @@ exports.run = (client, message, args, config) => {
             return;
         }
 
-        if (!message.member.hasPermission(`ADMINISTRATOR`)) {
+        if (!utils.isDev) {
             return;
         }
 
@@ -37,7 +38,7 @@ exports.run = (client, message, args, config) => {
     
             rep[user.id] += number;
     
-            message.channel.send(`Added ${number} ${constants.REP} to ${user.username}. Total ${constants.REP}: ${rep[user.id]}.`);
+            message.channel.send(`Added ${number} ${constants.REP} to ${user.username}. Total ${constants.REP}: ${rep[user.id]}`);
         }
         else {
             const roleMembers = role.members.size;

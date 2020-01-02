@@ -1,8 +1,18 @@
 {
-	"clientKey": "MjYzODgxODI2OTE1OTc1MTY4.XeLt_g.Ek7RnCfqfcukNn03rHIfcborqDw",
+	"clientKey": "MjYzODgxODI2OTE1OTc1MTY4.Xg5cDA.C61E2XqMxPDyhtA0s8-uqDLSecY",
 	"cmdkey": "$",
 	"topUsers": 10,
 	"embedColour": "0x0000ff",
 	"helpEmbedColour": "0x7289da",
-	"botChannel": "bot-notifications"
+	"botChannel": "bot-notifications",
+
+	"squadElos": {
+		"silver": "TSO Academy",
+		"gold": "TSO Academy",
+		"platinum": "Gamma Squad",
+		"diamond": "Alpha Squad",
+		"master": "Sovereign Squad",
+		"grandmaster": "Sovereign Squad",
+		"challenger": "Sovereign Squad"
+	}
 }
