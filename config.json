@@ -1,5 +1,5 @@
 {
-	"clientKey": "MjYzODgxODI2OTE1OTc1MTY4.Xg5cDA.C61E2XqMxPDyhtA0s8-uqDLSecY",
+	"clientKey": "",
 	"cmdkey": "$",
 	"topUsers": 10,
 	"embedColour": "0x0000ff",
@@ -14,5 +14,7 @@
 		"master": "Sovereign Squad",
 		"grandmaster": "Sovereign Squad",
 		"challenger": "Sovereign Squad"
-	}
+	},
+	"squadRoles": ["TSO Academy", "Gamma Squad", "Alpha Squad", "Sovereign Squad"],
+	"laneRoles": ["Top", "Jungler", "Middle", "ADC", "Support"]
 }

@@ -1,4 +1,5 @@
 const log = require("../logging.js");
+const utils = require("../utils.js");
 const Discord = require("discord.js");
 const fs = require("fs");
 
@@ -27,17 +28,35 @@ exports.run = (client, message, args, config) => {
         // Gather args and verify arg count
         args = message.content.slice(config.cmdkey.length + 'register'.length + 1).split(',');
         if (args.length !== 4) {
-            return message.channel.send(`Usage: ${config.cmdkey}register IGN, role, rank, timezone`);
+            return message.channel.send(`Usage: ${config.cmdkey}register IGN, lane, rank, timezone`);
         }
 
-        const username = message.member.nickname;
+        // Prepare user input
+        const username = message.member.nickname ? message.member.nickname : message.member.displayName;
         const inputIGN = args[0];
-        const inputRole = args[1].capitalise();
-        const inputRank = args[2].capitalise().trim();
-        const inputTimezone = args[3].toUpperCase().trim();
+        const inputLane = args[1].trim().capitalise();
+        const inputRank = args[2].trim().capitalise();
+        const inputTimezone = args[3].trim().toUpperCase();
+
+        // Validate lane input and assign corresponding lane role
+        const laneRole = message.guild.roles.find(r => r.name.toLowerCase() === inputLane.toLowerCase())
+        let addLaneRole = false;
+        if(!laneRole) {
+            let msg = `Couldn't find lane \`${inputLane.toLowerCase()}\`. Please validate your input\n`
+            msg += 'Valid lane input: '
+            config.laneRoles.forEach(function(laneRole) {
+                msg += `\`${laneRole}\` `
+            });
+            return message.channel.send(msg);
+        } else {
+            if (message.member.roles.find(rl => rl.id !== laneRole.id)) {
+                addLaneRole = true;
+            }
+        }
 
         // Validate rank input and assign corresponding squad role
         const squadRole = message.guild.roles.find(r => r.name === config.squadElos[inputRank.toLowerCase()])
+        let addSquadRole = false;
         if(!squadRole) {
             let msg = `Couldn't find rank \`${inputRank.toLowerCase()}\`. Please validate your input\n`
             msg += 'Valid rank input: '
@@ -47,29 +66,42 @@ exports.run = (client, message, args, config) => {
             return message.channel.send(msg);
         } else {
             if (message.member.roles.find(rl => rl.id !== squadRole.id)) {
-                message.member.addRole(squadRole);
+                addSquadRole = true;
             }
         }
-        
-        const data = JSON.parse(fs.readFileSync(`./data.json`));
-        let isUpdate = data[message.author.id] ? true : false;
 
+        // Prepare embed msg
         const embed = new Discord.RichEmbed()
             .setAuthor(username, message.author.avatarURL)
             .setDescription(`
                 IGN: ${inputIGN}
-                Role: ${inputRole}
+                Role: ${inputLane}
                 Rank: ${inputRank}
                 Timezone: ${inputTimezone}
                 Squad: ${squadRole.name}
             `)
             .setColor(config.embedColour);
 
-        message.channel.send(`${isUpdate ? `Updated` : `Registered`} user info:`, {embed});
-        message.channel.send(`User has been assigned to **${squadRole.name}** and given the role`);
+        // Assign squad and lane roles
+        if(addLaneRole) {
+            utils.cleanLaneRoles(message, laneRole);
+            message.member.addRole(laneRole);
+            message.channel.send(`User has been assigned as **${laneRole.name}** and given the role`);
+        }
 
-        data[message.author.id] = [username, inputIGN, inputRole, inputRank, inputTimezone];
+        if(addSquadRole) {
+            utils.cleanSquadRoles(message, squadRole);
+            message.member.addRole(squadRole);
+            if(addSquadRole) {message.channel.send(`User has been assigned to **${squadRole.name}** and given the role`);}
+        }
+
+        // Bot saved data output
+        const data = JSON.parse(fs.readFileSync(`./data.json`));
+        let isUpdate = data[message.author.id] ? true : false;
+        message.channel.send(`${isUpdate ? `Updated` : `Registered`} user info:`, {embed});
+
+        // Data save
+        data[message.author.id] = [username, inputIGN, inputLane, inputRank, inputTimezone];
         fs.writeFileSync(`./data.json`, JSON.stringify(data, null, 4));
-        message.delete();
     });    
 }
