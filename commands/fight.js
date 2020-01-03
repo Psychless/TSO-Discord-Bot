@@ -9,6 +9,9 @@ exports.run = (client, message, args, config) => {
             return;
         }
 
+        // TODO: Remove this when command is done
+        return message.channel.send(`This command is a WIP. Coming soon!`);
+
         if (args.length !== 1) {
             return message.channel.send(`Usage: ${config.cmdkey}fight @user`);
         }

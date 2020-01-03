@@ -13,12 +13,12 @@ exports.run = (client, message, args, config) => {
             **${config.cmdkey}rep** - shows your ${constants.REP} balance
             **${config.cmdkey}rep @user** - shows the user's ${constants.REP} balance
             **${config.cmdkey}toprep** - shows the users with the highest ${constants.REP}
-            **${config.cmdkey}topteams** - shows the guilds with the highest total ${constants.REP}
+            **${config.cmdkey}topsquads** - shows the squads with the highest total ${constants.REP}
             **${config.cmdkey}loot** - shows a list of all the items available for purchase
             **${config.cmdkey}buyloot <item index>** - buys the item and informs the admin
             **${config.cmdkey}roles** - shows a list of roles available for purchase
             **${config.cmdkey}buyrole <role index>** - buyse the role and automatically adds you to it
-            **${config.cmdkey}fight @user** - fight the user for 1 ${constants.REP}
+            ~~**${config.cmdkey}fight @user** - fight the user for 1 ${constants.REP}~~ **(WIP)**
         `)
         .setColor(config.helpEmbedColour)
         message.author.send({embed});
