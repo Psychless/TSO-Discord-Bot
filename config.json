@@ -1,5 +1,4 @@
 {
-	"clientKey": "",
 	"cmdkey": "$",
 	"topUsers": 10,
 	"embedColour": "0x0000ff",
@@ -15,6 +14,7 @@
 		"grandmaster": "Sovereign Squad",
 		"challenger": "Sovereign Squad"
 	},
-	"squadRoles": ["TSO Academy", "Gamma Squad", "Alpha Squad", "Sovereign Squad"],
-	"laneRoles": ["Top", "Jungler", "Middle", "ADC", "Support"]
+	"squadRoles": ["TSO Academy", "Gamma Squad", "Alpha Squad", "Sovereign Squad", "Wildcard Squad"],
+	"laneRoles": ["Top", "Jungler", "Middle", "ADC", "Support"],
+	"lolRegions": ["EUW", "EUNE", "NA", "KR", "LAN", "LAS", "OCE", "BR", "TR", "RU"]
 }

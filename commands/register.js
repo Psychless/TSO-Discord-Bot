@@ -27,8 +27,8 @@ exports.run = (client, message, args, config) => {
 
         // Gather args and verify arg count
         args = message.content.slice(config.cmdkey.length + 'register'.length + 1).split(',');
-        if (args.length !== 4) {
-            return message.channel.send(`Usage: ${config.cmdkey}register IGN, lane, rank, timezone`);
+        if (args.length !== 5) {
+            return message.channel.send(`Usage: ${config.cmdkey}register IGN, lane, rank, region, timezone`);
         }
 
         // Prepare user input
@@ -36,7 +36,8 @@ exports.run = (client, message, args, config) => {
         const inputIGN = args[0];
         const inputLane = args[1].trim().capitalise();
         const inputRank = args[2].trim().capitalise();
-        const inputTimezone = args[3].trim().toUpperCase();
+        const inputRegion = args[3].trim().toUpperCase();
+        const inputTimezone = args[4].trim().toUpperCase();
 
         // Validate lane input and assign corresponding lane role
         const laneRole = message.guild.roles.find(r => r.name.toLowerCase() === inputLane.toLowerCase())
@@ -55,7 +56,7 @@ exports.run = (client, message, args, config) => {
         }
 
         // Validate rank input and assign corresponding squad role
-        const squadRole = message.guild.roles.find(r => r.name === config.squadElos[inputRank.toLowerCase()])
+        let squadRole = message.guild.roles.find(r => r.name === config.squadElos[inputRank.toLowerCase()])
         let addSquadRole = false;
         if(!squadRole) {
             let msg = `Couldn't find rank \`${inputRank.toLowerCase()}\`. Please validate your input\n`
@@ -70,6 +71,21 @@ exports.run = (client, message, args, config) => {
             }
         }
 
+        // Validate region input and assign to wildcard squad if not from EUW region
+        if(!config.lolRegions.includes(inputRegion)){
+            addSquadRole = false;
+            let msg = `Couldn't find region \`${inputRegion}\`. Please validate your input\n`
+            msg += 'Valid region input: '
+            config.lolRegions.forEach(function(region) {
+                msg += `\`${region}\` `
+            });
+            return message.channel.send(msg);
+        } else {
+            if(inputRegion !== 'EUW'){
+                squadRole = message.guild.roles.find(r => r.name === 'Wildcard Squad');
+            }
+        }
+
         // Prepare embed msg
         const embed = new Discord.RichEmbed()
             .setAuthor(username, message.author.avatarURL)
@@ -77,6 +93,7 @@ exports.run = (client, message, args, config) => {
                 IGN: ${inputIGN}
                 Role: ${inputLane}
                 Rank: ${inputRank}
+                Region: ${inputRegion}
                 Timezone: ${inputTimezone}
                 Squad: ${squadRole.name}
             `)
@@ -101,7 +118,7 @@ exports.run = (client, message, args, config) => {
         message.channel.send(`${isUpdate ? `Updated` : `Registered`} user info:`, {embed});
 
         // Data save
-        data[message.author.id] = [username, inputIGN, inputLane, inputRank, inputTimezone];
+        data[message.author.id] = [username, inputIGN, inputLane, inputRank, inputRegion, inputTimezone];
         fs.writeFileSync(`./data.json`, JSON.stringify(data, null, 4));
     });    
 }

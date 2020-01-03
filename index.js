@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
-var config = require("./config.json");
+const config = require("./config.json");
+const token = require("./token.json");
 const log = require("./logging.js");
 const fs = require("fs");
 
@@ -34,4 +35,4 @@ client.on("error", (err) => {
     log.logDate(`There was an error: ${err.name}: ${err.message}`);
 });
 
-client.login(config.clientKey);
+client.login(token.token);
