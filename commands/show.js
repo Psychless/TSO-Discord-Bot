@@ -1,4 +1,5 @@
 const log = require("../logging.js");
+const utils = require("../utils.js");
 const Discord = require("discord.js");
 const fs = require("fs");
 
@@ -21,6 +22,10 @@ Array.prototype.toLowerCase = function() {
 exports.run = (client, message, args, config) => {
     return new Promise(async (resolve, reject) => {
         if (!message.guild) {
+            return;
+        }
+
+        if(!utils.isDev(message.member)){
             return;
         }
 
