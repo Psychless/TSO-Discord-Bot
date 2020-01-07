@@ -29,14 +29,14 @@ exports.run = (client, message, args, config) => {
                 rep[user.id] = 0;
             }
 
-            message.channel.send(`${user.username} has ${rep[user.id]} ${constants.REP}.`);
+            message.channel.send(`${user.username} has ${rep[user.id]} ${constants.REP}`);
         } else {
             const rep = JSON.parse(fs.readFileSync(`./rolerep.json`));
             if (!rep[role.id]) {
                 rep[role.id] = 0;
             }
 
-            message.channel.send(`${role.name} has ${rep[role.id]} ${constants.REP}.`);
+            message.channel.send(`${role.name} has ${rep[role.id]} ${constants.REP}`);
         }
     });    
 }

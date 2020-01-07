@@ -9,18 +9,13 @@ exports.run = (client, message, args, config) => {
             return;
         }
 
-        const rep = JSON.parse(fs.readFileSync(`./rep.json`));
+        const rep = JSON.parse(fs.readFileSync(`./rolerep.json`));
 
         const roles = message.guild.roles.filter(role => config.squadRoles.includes(role.name)).array();
         let squads = [];
 
         for (const role of roles) {
-            let tempSquad = {team: role.name, rep: 0};
-            for (const member of role.members.array()) {
-                if (!rep[member.id]) continue;
-                tempSquad.rep += rep[member.id];
-            }
-            squads.push(tempSquad);
+            squads.push({team: role.name, rep: rep[role.id] ? rep[role.id] : 0});
         }
 
         let sortedSquads = squads.sort((a, b) => (a.rep > b.rep) ? -1 : 1)
