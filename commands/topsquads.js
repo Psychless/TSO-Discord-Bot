@@ -28,7 +28,7 @@ exports.run = (client, message, args, config) => {
             msg += `${i + 1} - ${elem.team}: ${elem.rep}\n`;
         }
 
-        const embed = new Discord.RichEmbed().setTitle(constants.TOP_TEAM_REP_LIST_TITLE).setDescription(msg).setColor(config.embedColour);
+        const embed = new Discord.RichEmbed().setTitle(constants.TOP_SQUAD_REP_LIST_TITLE).setDescription(msg).setColor(config.embedColour);
         message.channel.send({embed});
     });    
 }
