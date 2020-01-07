@@ -40,8 +40,7 @@ exports.run = (client, message, args, config) => {
     
             message.channel.send(`Added ${number} ${constants.REP} to ${user.username}. Total ${constants.REP}: ${rep[user.id]}`);
             fs.writeFileSync(`./rep.json`, JSON.stringify(rep, null, 4));
-        }
-        else {
+        } else {
             const rep = JSON.parse(fs.readFileSync(`./rolerep.json`));
             if (!rep[role.id]) {
                 rep[role.id] = 0;

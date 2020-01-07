@@ -10,22 +10,33 @@ exports.run = (client, message, args, config) => {
         }
 
         let user;
+        let role;
         if (args.length === 1) {
             user = message.mentions.users.first();
+            role = message.mentions.roles.first();
         } else {
             user = message.author;
         }
 
          
-        if (!user) {
-            return message.channel.send(`Usage: ${config.cmdkey}rep @user`);
+        if (!user && !role) {
+            return message.channel.send(`Usage: ${config.cmdkey}rep @user/@role`);
         }
 
-        const rep = JSON.parse(fs.readFileSync(`./rep.json`));
-        if (!rep[user.id]) {
-            rep[user.id] = 0;
-        }
+        if(user){
+            const rep = JSON.parse(fs.readFileSync(`./rep.json`));
+            if (!rep[user.id]) {
+                rep[user.id] = 0;
+            }
 
-        message.channel.send(`${user.username} has ${rep[user.id]} ${constants.REP}.`);
+            message.channel.send(`${user.username} has ${rep[user.id]} ${constants.REP}.`);
+        } else {
+            const rep = JSON.parse(fs.readFileSync(`./rolerep.json`));
+            if (!rep[role.id]) {
+                rep[role.id] = 0;
+            }
+
+            message.channel.send(`${role.name} has ${rep[role.id]} ${constants.REP}.`);
+        }
     });    
 }
