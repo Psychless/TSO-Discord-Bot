@@ -42,7 +42,7 @@ exports.run = (client, message, args, config) => {
             fs.writeFileSync(`./rep.json`, JSON.stringify(rep, null, 4));
         }
         else {
-            const rep = JSON.parse(fs.readFileSync(`./squadrep.json`));
+            const rep = JSON.parse(fs.readFileSync(`./rolerep.json`));
             if (!rep[role.id]) {
                 rep[role.id] = 0;
             }
@@ -50,7 +50,7 @@ exports.run = (client, message, args, config) => {
             rep[role.id] += number;
     
             message.channel.send(`Added ${number} ${constants.REP} to ${role.name}. Total ${constants.REP}: ${rep[role.id]}`);
-            fs.writeFileSync(`./squadrep.json`, JSON.stringify(rep, null, 4));
+            fs.writeFileSync(`./rolerep.json`, JSON.stringify(rep, null, 4));
         }
     });    
 }

@@ -28,9 +28,8 @@ exports.run = (client, message, args, config) => {
             return message.channel.send(`Usage: ${config.cmdkey}takerep @user/@role number`);
         }
 
-        const rep = JSON.parse(fs.readFileSync(`./rep.json`));
-
         if (user) {
+            const rep = JSON.parse(fs.readFileSync(`./rep.json`));
             if (!rep[user.id]) {
                 rep[user.id] = 0;
             }
@@ -42,22 +41,20 @@ exports.run = (client, message, args, config) => {
             }
     
             message.channel.send(`Took ${number} rep from ${user.username}. Total rep: ${rep[user.id]}`);
-        }
-        else {
-            const roleMembers = role.members.size;
-            const subtraction = Math.floor(number / roleMembers);
-
-            for (const member of role.members.array()) {
-                if (!rep[member.id]) {
-                    rep[member.id] = 0;
-                }
-        
-                rep[member.id] -= subtraction;
+            fs.writeFileSync(`./rep.json`, JSON.stringify(rep, null, 4));
+        } else {
+            const rep = JSON.parse(fs.readFileSync(`./rolerep.json`));
+            if (!rep[role.id]) {
+                rep[role.id] = 0;
+            }
+    
+            rep[role.id] -= number;
+            if(rep[role.id] <= 0){
+                rep[role.id] = 0;
             }
 
-            message.channel.send(`Took ${subtraction * roleMembers} rep total from ${role}.`);
+            message.channel.send(`Took ${number} rep from ${role.name}. Total rep: ${rep[role.id]}`);
+            fs.writeFileSync(`./rolerep.json`, JSON.stringify(rep, null, 4));
         }
-
-        fs.writeFileSync(`./rep.json`, JSON.stringify(rep, null, 4));
     });    
 }
