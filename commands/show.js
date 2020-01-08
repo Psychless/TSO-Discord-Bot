@@ -25,7 +25,7 @@ exports.run = (client, message, args, config) => {
             return;
         }
 
-        if(!utils.isDev(message.member)){
+        if (!utils.isDev(message.member) && !utils.isSquadCaptain(message.member)) {
             return;
         }
 

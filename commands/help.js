@@ -26,9 +26,10 @@ exports.run = (client, message, args, config) => {
         message.author.send({embed});
 
         // SQUAD CAPTAIN CMDS
-        if(message.guild && utils.isDev(message.member)){
+        if(message.guild && (utils.isSquadCaptain(message.member) || utils.isDev(message.member))){
             embed.setTitle("Squad captain commands");
             embed.setDescription(`
+                **${config.cmdkey}show <@user>** - shows user info from their \`register\` command
                 **${config.cmdkey}findplayers** <rank>, <lane> - finds all users within server with these ranks and lanes
             `)
             message.author.send({embed});
@@ -41,7 +42,6 @@ exports.run = (client, message, args, config) => {
                 **${config.cmdkey}giverep <@user or @role> <number>** - adds <number> amount of ${constants.REP} for the user or role
                 **${config.cmdkey}takerep <@user or @role> <number>** - subtracts <number> amount of ${constants.REP} for the user or role
                 **${config.cmdkey}setrep <@user or @role> <number>** - sets <number> of ${constants.REP} for the user or role
-                **${config.cmdkey}show <@user>** - shows user info from their \`register\` command
             `)
             message.author.send({embed});
         }

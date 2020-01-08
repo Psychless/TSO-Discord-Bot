@@ -42,6 +42,7 @@ exports.run = (client, message, args, config) => {
         let addLaneRole = false;
         if(!laneRole) {
             utils.rejectRoleInput(message, inputLane.toLowerCase());
+            return;
         } else {
             if (message.member.roles.find(rl => rl.id !== laneRole.id)) {
                 addLaneRole = true;
@@ -53,6 +54,7 @@ exports.run = (client, message, args, config) => {
         let addSquadRole = false;
         if(!squadRole) {
             utils.rejectRankInput(message, inputRank.toLowerCase());
+            return;
         } else {
             if (message.member.roles.find(rl => rl.id !== squadRole.id)) {
                 addSquadRole = true;
@@ -102,7 +104,7 @@ exports.run = (client, message, args, config) => {
         message.channel.send(`${isUpdate ? `Updated` : `Registered`} user info:`, {embed});
 
         // Data save
-        data[message.author.id] = [username, inputIGN, inputLane, inputRank, inputRegion, inputTimezone];
+        data[message.author.id] = [message.member.displayName, inputIGN, inputLane, inputRank, inputRegion, inputTimezone];
         fs.writeFileSync(`./data/data.json`, JSON.stringify(data, null, 4));
     });    
 }

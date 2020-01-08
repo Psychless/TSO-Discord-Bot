@@ -26,7 +26,7 @@ exports.run = (client, message, args, config) => {
             return;
         }
 
-        if (!utils.isDev(message.member) || !utils.isSquadCaptain(message.member)) {
+        if (!utils.isDev(message.member) && !utils.isSquadCaptain(message.member)) {
             return;
         }
 
@@ -35,11 +35,11 @@ exports.run = (client, message, args, config) => {
         }
 
         // Prepare user input
-        const inputRank = args[0].trim().capitalize();
+        const inputRank = args[0].trim().toLowerCase();
         const inputLane = args[1].trim().capitalize();
 
         // Validate rank
-        const rankRole = message.guild.roles.find(r => r.name.toLowerCase() in config.squadElos)
+        const rankRole = message.guild.roles.find(r => inputRank in config.squadElos && r.name.toLowerCase() === inputRank)
         if(!rankRole) {
             utils.rejectRankInput(message, inputRank.toLowerCase());
             return;

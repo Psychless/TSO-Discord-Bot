@@ -1,5 +1,9 @@
 let config = require("./config.json");
 
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 module.exports = {
     isDev: function(member) {
         return (member.hasPermission(`ADMINISTRATOR`) || member.roles.find(r => r.name === config.rolename_dev))
@@ -13,7 +17,7 @@ module.exports = {
         let msg = `Couldn't find lane \`${roleName}\`. Please validate your input\n`
         msg += '**Lanes:** '
         config.laneRoles.forEach(function(laneRole) {
-            msg += `\`${laneRole.capitalise()}\` `
+            msg += `\`${laneRole.capitalize()}\` `
         });
         return message.channel.send(msg);
     },
