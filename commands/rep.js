@@ -12,7 +12,7 @@ exports.run = (client, message, args, config) => {
         let user;
         let role;
         if (args.length === 1) {
-            user = message.mentions.users.first();
+            user = message.guild.members.get(message.mentions.users.first().id);
             role = message.mentions.roles.first();
         } else {
             user = message.author;
@@ -24,14 +24,14 @@ exports.run = (client, message, args, config) => {
         }
 
         if(user){
-            const rep = JSON.parse(fs.readFileSync(`./rep.json`));
+            const rep = JSON.parse(fs.readFileSync(`./data/rep.json`));
             if (!rep[user.id]) {
                 rep[user.id] = 0;
             }
 
-            message.channel.send(`${user.username} has ${rep[user.id]} ${constants.REP}`);
+            message.channel.send(`${user.displayName} has ${rep[user.id]} ${constants.REP}`);
         } else {
-            const rep = JSON.parse(fs.readFileSync(`./rolerep.json`));
+            const rep = JSON.parse(fs.readFileSync(`./data/rolerep.json`));
             if (!rep[role.id]) {
                 rep[role.id] = 0;
             }

@@ -9,7 +9,7 @@ exports.run = (client, message, args, config) => {
             return;
         }
 
-        const rep = JSON.parse(fs.readFileSync(`./rolerep.json`));
+        const rep = JSON.parse(fs.readFileSync(`./data/rolerep.json`));
         for (const key in rep) {
             if (!message.guild.roles.get(key)) {
                 delete rep[key];
@@ -40,6 +40,6 @@ exports.run = (client, message, args, config) => {
         const embed = new Discord.RichEmbed().setTitle(constants.TOP_TEAM_REP_LIST_TITLE).setDescription(msg).setColor(config.embedColour);
         message.channel.send({embed});
 
-        fs.writeFileSync(`./rolerep.json`, JSON.stringify(rep, null, 4));
+        fs.writeFileSync(`./data/rolerep.json`, JSON.stringify(rep, null, 4));
     });    
 }

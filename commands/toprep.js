@@ -9,7 +9,7 @@ exports.run = (client, message, args, config) => {
             return;
         }
 
-        const rep = JSON.parse(fs.readFileSync(`./rep.json`));
+        const rep = JSON.parse(fs.readFileSync(`./data/rep.json`));
         for (const key in rep) {
             if (!message.guild.members.get(key)) {
                 delete rep[key];
@@ -31,12 +31,12 @@ exports.run = (client, message, args, config) => {
             if (!member) {
                 continue;
             }
-            msg += `${i + 1} - ${member.user.username}: **${elem.rep}**\n`;
+            msg += `${i + 1} - ${member.displayName}: **${elem.rep}**\n`;
         }
 
         const embed = new Discord.RichEmbed().setTitle(constants.TOP_USR_REP_LIST_TITLE).setDescription(msg).setColor(config.embedColour);
         message.channel.send({embed});
 
-        fs.writeFileSync(`./rep.json`, JSON.stringify(rep, null, 4));
+        fs.writeFileSync(`./data/rep.json`, JSON.stringify(rep, null, 4));
     });    
 }

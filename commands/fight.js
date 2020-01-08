@@ -16,7 +16,7 @@ exports.run = (client, message, args, config) => {
             return message.channel.send(`Usage: ${config.cmdkey}fight @user`);
         }
 
-        const user = message.mentions.users.first();
+        const user = message.guild.members.get(message.mentions.users.first().id);
         if (!user) {
             return message.channel.send(`Usage: ${config.cmdkey}fight @user`);
         }
@@ -25,7 +25,7 @@ exports.run = (client, message, args, config) => {
             return message.channel.send(`You cannot fight yourself.`);
         }
 
-        const rep = JSON.parse(fs.readFileSync(`./rep.json`));
+        const rep = JSON.parse(fs.readFileSync(`./data/rep.json`));
         if (!rep[user.id]) {
             rep[user.id] = 0;
         }
@@ -39,7 +39,7 @@ exports.run = (client, message, args, config) => {
         }
 
         if (rep[user.id] <= 0) {
-            return message.channel.send(`${user.username} does not have enough ${constants.REP} to fight.`);
+            return message.channel.send(`${user.displayName} does not have enough ${constants.REP} to fight.`);
         }
 
         const rand = Math.random() < 0.5;
@@ -54,6 +54,6 @@ exports.run = (client, message, args, config) => {
             message.channel.send(`${message.author} ${constants.FIGHT_WIN_MSG}`);
         }
 
-        fs.writeFileSync(`./rep.json`, JSON.stringify(rep, null, 4));
+        fs.writeFileSync(`./data/rep.json`, JSON.stringify(rep, null, 4));
     });    
 }

@@ -38,14 +38,14 @@ exports.run = (client, message, args, config) => {
             return message.channel.send(`Usage: ${config.cmdkey}show @user`);
         }
         
-        const data = JSON.parse(fs.readFileSync(`./data.json`));
+        const data = JSON.parse(fs.readFileSync(`./data/data.json`));
         const userData = data[user.id];
         if (!userData) {
             return message.channel.send(`The user has not yet registered`);
         }
 
         const embed = new Discord.RichEmbed()
-            .setAuthor(user.nickname, user.user.avatarURL)
+            .setAuthor(user.displayName, user.user.avatarURL)
             .setDescription(`
                 IGN: ${userData[1]}
                 Role: ${userData[2]}

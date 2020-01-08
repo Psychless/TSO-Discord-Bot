@@ -20,7 +20,7 @@ exports.run = (client, message, args, config) => {
         }
 
         // Initialize user's rep if not done already
-        const rep = JSON.parse(fs.readFileSync(`./rep.json`));
+        const rep = JSON.parse(fs.readFileSync(`./data/rep.json`));
         if (!rep[message.author.id]) {
             rep[message.author.id] = 0;
         }
@@ -45,7 +45,7 @@ exports.run = (client, message, args, config) => {
         // Buy and assign role
         rep[message.author.id] -= prices.roles[roleIndex].price;
         message.member.addRole(role);
-        message.channel.send(`Role \'${prices.roles[roleIndex].role}\' bought for \`${prices.roles[roleIndex].price}\` ${constants.REP}.`);
-        fs.writeFileSync(`./rep.json`, JSON.stringify(rep, null, 4));
+        message.channel.send(`Role \`${prices.roles[roleIndex].role}\` bought for \`${prices.roles[roleIndex].price}\` ${constants.REP}.`);
+        fs.writeFileSync(`./data/rep.json`, JSON.stringify(rep, null, 4));
     });    
 }

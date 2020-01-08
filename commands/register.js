@@ -32,7 +32,6 @@ exports.run = (client, message, args, config) => {
         }
 
         // Prepare user input
-        const username = message.member.nickname ? message.member.nickname : message.member.displayName;
         const inputIGN = args[0];
         const inputLane = args[1].trim().capitalise();
         const inputRank = args[2].trim().capitalise();
@@ -88,7 +87,7 @@ exports.run = (client, message, args, config) => {
 
         // Prepare embed msg
         const embed = new Discord.RichEmbed()
-            .setAuthor(username, message.author.avatarURL)
+            .setAuthor(message.member.displayName, message.author.avatarURL)
             .setDescription(`
                 IGN: ${inputIGN}
                 Role: ${inputLane}
@@ -113,12 +112,12 @@ exports.run = (client, message, args, config) => {
         }
 
         // Bot saved data output
-        const data = JSON.parse(fs.readFileSync(`./data.json`));
+        const data = JSON.parse(fs.readFileSync(`./data/data.json`));
         let isUpdate = data[message.author.id] ? true : false;
         message.channel.send(`${isUpdate ? `Updated` : `Registered`} user info:`, {embed});
 
         // Data save
         data[message.author.id] = [username, inputIGN, inputLane, inputRank, inputRegion, inputTimezone];
-        fs.writeFileSync(`./data.json`, JSON.stringify(data, null, 4));
+        fs.writeFileSync(`./data/data.json`, JSON.stringify(data, null, 4));
     });    
 }

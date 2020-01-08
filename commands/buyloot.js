@@ -15,7 +15,7 @@ exports.run = (client, message, args, config) => {
 
         const itemIndex = args.join(` `);
 
-        const rep = JSON.parse(fs.readFileSync(`./rep.json`));
+        const rep = JSON.parse(fs.readFileSync(`./data/rep.json`));
         if (!rep[message.author.id]) {
             rep[message.author.id] = 0;
         }
@@ -50,6 +50,6 @@ exports.run = (client, message, args, config) => {
         botChannel.send(`<@&${message.guild.roles.find(r => r.name === 'Administrator').id}>`);
         botChannel.send({embed});
         message.channel.send(`Item \`${lootItem.name}\` bought for \`${lootItem.price}\` ${constants.REP}. An admin will be in contact with you shortly.`);
-        fs.writeFileSync(`./rep.json`, JSON.stringify(rep, null, 4));
+        fs.writeFileSync(`./data/rep.json`, JSON.stringify(rep, null, 4));
     });
 }

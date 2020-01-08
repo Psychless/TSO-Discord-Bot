@@ -9,7 +9,7 @@ exports.run = (client, message, args, config) => {
             return;
         }
 
-        const rep = JSON.parse(fs.readFileSync(`./rolerep.json`));
+        const rep = JSON.parse(fs.readFileSync(`./data/rolerep.json`));
 
         const roles = message.guild.roles.filter(role => config.squadRoles.includes(role.name)).array();
         let squads = [];

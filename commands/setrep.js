@@ -17,7 +17,7 @@ exports.run = (client, message, args, config) => {
             return message.channel.send(`Usage: ${config.cmdkey}setrep @user/@role number`);
         }
 
-        const user = message.mentions.users.first();
+        const user = message.guild.members.get(message.mentions.users.first().id);
         const role = message.mentions.roles.first();
         if (!user && !role) {
             return message.channel.send(`Usage: ${config.cmdkey}setrep @user/@role number`);
@@ -29,18 +29,18 @@ exports.run = (client, message, args, config) => {
         }
         
         if (user) {
-            const rep = JSON.parse(fs.readFileSync(`./rep.json`));
+            const rep = JSON.parse(fs.readFileSync(`./data/rep.json`));
             if (!rep[user.id]) {
                 rep[user.id] = 0;
             }
     
             rep[user.id] = number;
     
-            message.channel.send(`Set ${user.username}'s rep to ${number}.`);
-            fs.writeFileSync(`./rep.json`, JSON.stringify(rep, null, 4));
+            message.channel.send(`Set ${user.displayName}'s rep to ${number}.`);
+            fs.writeFileSync(`./data/rep.json`, JSON.stringify(rep, null, 4));
         }
         else {
-            const rep = JSON.parse(fs.readFileSync(`./rolerep.json`));
+            const rep = JSON.parse(fs.readFileSync(`./data/rolerep.json`));
             if (!rep[role.id]) {
                 rep[role.id] = 0;
             }
@@ -48,7 +48,7 @@ exports.run = (client, message, args, config) => {
             rep[role.id] = number;
     
             message.channel.send(`Set ${role.name}'s rep to ${number}.`);
-            fs.writeFileSync(`./rolerep.json`, JSON.stringify(rep, null, 4));
+            fs.writeFileSync(`./data/rolerep.json`, JSON.stringify(rep, null, 4));
         }
     });    
 }
