@@ -12,7 +12,7 @@ function updateOutputPlayerList(playerList, maxPage, curPage, playersPerPage, em
     let content = '';
     for(let i = (curPage - 1) * playersPerPage; i < curPage * playersPerPage; i++){
         if(playerList[i]){
-            content += `• ${playerList[i]}\n`;
+            content += `• ${playerList[i].displayName}\n`;
         }
     };
 
@@ -31,7 +31,7 @@ exports.run = (client, message, args, config) => {
         }
 
         if (args.length < 2) {
-            return message.channel.send(`Usage: ${config.cmdkey}findplayers rank, lane`);
+            return message.channel.send(`Usage: ${config.cmdkey}findplayers rank lane`);
         }
 
         // Prepare user input
@@ -79,7 +79,7 @@ exports.run = (client, message, args, config) => {
 
             // Create embed
             let embed = new Discord.RichEmbed()
-            .setTitle(`${playerList.length} players found | ${rankRole.name} - ${laneRole.name}`)
+            .setTitle(`${playerList.length} unassigned players found | ${rankRole.name} - ${laneRole.name}`)
             .setColor(config.embedColour);
 
             // Send initial list msg and wait for list control reactions

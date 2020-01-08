@@ -30,7 +30,7 @@ exports.run = (client, message, args, config) => {
             embed.setTitle("Squad captain commands");
             embed.setDescription(`
                 **${config.cmdkey}show <@user>** - shows user info from their \`register\` command
-                **${config.cmdkey}findplayers** <rank>, <lane> - finds all users within server with these ranks and lanes
+                **${config.cmdkey}findplayers** <rank> <lane> - finds all users within server with these ranks and lanes
             `)
             message.author.send({embed});
         }

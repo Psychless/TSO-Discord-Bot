@@ -15,7 +15,7 @@ exports.run = (client, message, args, config) => {
             user = message.guild.members.get(message.mentions.users.first().id);
             role = message.mentions.roles.first();
         } else {
-            user = message.author;
+            user = message.guild.members.get(message.author.id);
         }
 
          
