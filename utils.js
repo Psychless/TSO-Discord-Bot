@@ -2,7 +2,38 @@ let config = require("./config.json");
 
 module.exports = {
     isDev: function(member) {
-        return (member.hasPermission(`ADMINISTRATOR`) || member.roles.find(r => r.name === "Developer"))
+        return (member.hasPermission(`ADMINISTRATOR`) || member.roles.find(r => r.name === config.rolename_dev))
+    },
+
+    isSquadCaptain: function(member) {
+        return (member.roles.find(r => r.name === config.rolename_squadcap))
+    },
+
+    rejectRoleInput(message, roleName) {
+        let msg = `Couldn't find lane \`${roleName}\`. Please validate your input\n`
+        msg += '**Lanes:** '
+        config.laneRoles.forEach(function(laneRole) {
+            msg += `\`${laneRole.capitalise()}\` `
+        });
+        return message.channel.send(msg);
+    },
+
+    rejectRankInput(message, rankName) {
+        let msg = `Couldn't find rank \`${rankName}\`. Please validate your input\n`
+            msg += '**Ranks:** '
+            Object.entries(config.squadElos).map(([rank]) => {
+                msg += `\`${rank.capitalise()}\` `
+            })
+            return message.channel.send(msg);
+    },
+
+    rejectRegionInput(message, regionName){
+        let msg = `Couldn't find region \`${regionName}\`. Please validate your input\n`
+            msg += '**Regions:** '
+            config.lolRegions.forEach(function(region) {
+                msg += `\`${region}\` `
+            });
+            return message.channel.send(msg);
     },
 
     cleanLaneRoles: function(message, exceptionRole) {

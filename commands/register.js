@@ -42,12 +42,7 @@ exports.run = (client, message, args, config) => {
         const laneRole = message.guild.roles.find(r => r.name.toLowerCase() === inputLane.toLowerCase())
         let addLaneRole = false;
         if(!laneRole) {
-            let msg = `Couldn't find lane \`${inputLane.toLowerCase()}\`. Please validate your input\n`
-            msg += 'Valid lane input: '
-            config.laneRoles.forEach(function(laneRole) {
-                msg += `\`${laneRole}\` `
-            });
-            return message.channel.send(msg);
+            utils.rejectRoleInput(message, inputLane.toLowerCase());
         } else {
             if (message.member.roles.find(rl => rl.id !== laneRole.id)) {
                 addLaneRole = true;
@@ -58,12 +53,7 @@ exports.run = (client, message, args, config) => {
         let squadRole = message.guild.roles.find(r => r.name === config.squadElos[inputRank.toLowerCase()])
         let addSquadRole = false;
         if(!squadRole) {
-            let msg = `Couldn't find rank \`${inputRank.toLowerCase()}\`. Please validate your input\n`
-            msg += 'Valid rank input: '
-            Object.entries(config.squadElos).map(([rank]) => {
-                msg += `\`${rank}\` `
-            })
-            return message.channel.send(msg);
+            utils.rejectRankInput(message, inputRank.toLowerCase());
         } else {
             if (message.member.roles.find(rl => rl.id !== squadRole.id)) {
                 addSquadRole = true;
@@ -73,12 +63,8 @@ exports.run = (client, message, args, config) => {
         // Validate region input and assign to wildcard squad if not from EUW region
         if(!config.lolRegions.includes(inputRegion)){
             addSquadRole = false;
-            let msg = `Couldn't find region \`${inputRegion}\`. Please validate your input\n`
-            msg += 'Valid region input: '
-            config.lolRegions.forEach(function(region) {
-                msg += `\`${region}\` `
-            });
-            return message.channel.send(msg);
+            utils.rejectRegionInput(message, inputRegion);
+            return;
         } else {
             if(inputRegion !== 'EUW'){
                 squadRole = message.guild.roles.find(r => r.name === 'Wildcard Squad');
