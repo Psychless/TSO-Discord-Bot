@@ -22,7 +22,7 @@ module.exports = {
         let msg = `Couldn't find rank \`${rankName}\`. Please validate your input\n`
             msg += '**Ranks:** '
             Object.entries(config.squadElos).map(([rank]) => {
-                msg += `\`${rank.capitalise()}\` `
+                msg += `\`${rank.capitalize()}\` `
             })
             return message.channel.send(msg);
     },

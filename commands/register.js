@@ -3,9 +3,8 @@ const utils = require("../utils.js");
 const Discord = require("discord.js");
 const fs = require("fs");
 
-String.prototype.capitalise = function() {
-    const char = this.charAt(0);
-    return char.toUpperCase() + this.slice(1);
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
 Array.prototype.toLowerCase = function() {
@@ -33,8 +32,8 @@ exports.run = (client, message, args, config) => {
 
         // Prepare user input
         const inputIGN = args[0];
-        const inputLane = args[1].trim().capitalise();
-        const inputRank = args[2].trim().capitalise();
+        const inputLane = args[1].trim().capitalize();
+        const inputRank = args[2].trim().capitalize();
         const inputRegion = args[3].trim().toUpperCase();
         const inputTimezone = args[4].trim().toUpperCase();
 

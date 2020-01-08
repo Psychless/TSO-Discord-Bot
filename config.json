@@ -2,11 +2,15 @@
 	"cmdkey": "$",
 	"topUsers": 10,
 	"embedColour": "0x9400D3",
-	"helpEmbedColour": "0x9400D3",
 	"botChannel": "bot-notifications",
 
+	"rolename_dev": "Developer",
+	"rolename_squadcap": "Squad Captain",
+
+	"playersPerListPage": 25,
+	"playerListControlTime": 60000,
+
 	"squadElos": {
-		"silver": "TSO Academy",
 		"gold": "TSO Academy",
 		"platinum": "Gamma Squad",
 		"diamond": "Alpha Squad",
