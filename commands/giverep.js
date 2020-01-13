@@ -18,7 +18,7 @@ exports.run = (client, message, args, config) => {
             return message.channel.send(`Usage: ${config.cmdkey}giverep @user/@role number`);
         }
 
-        const user = message.guild.members.get(message.mentions.users.first().id);
+        const user = message.mentions.users.first() ? message.guild.members.get(message.mentions.users.first().id) : undefined;
         const role = message.mentions.roles.first();
         if (!user && !role) {
             return message.channel.send(`Usage: ${config.cmdkey}giverep @user/@role number`);

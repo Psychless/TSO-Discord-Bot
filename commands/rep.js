@@ -12,7 +12,7 @@ exports.run = (client, message, args, config) => {
         let user;
         let role;
         if (args.length === 1) {
-            user = message.guild.members.get(message.mentions.users.first().id);
+            user = message.mentions.users.first() ? message.guild.members.get(message.mentions.users.first().id) : undefined;
             role = message.mentions.roles.first();
         } else {
             user = message.guild.members.get(message.author.id);

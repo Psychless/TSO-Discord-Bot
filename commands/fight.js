@@ -16,7 +16,7 @@ exports.run = (client, message, args, config) => {
             return message.channel.send(`Usage: ${config.cmdkey}fight @user`);
         }
 
-        const user = message.guild.members.get(message.mentions.users.first().id);
+        const user = message.mentions.users.first() ? message.guild.members.get(message.mentions.users.first().id) : undefined;
         if (!user) {
             return message.channel.send(`Usage: ${config.cmdkey}fight @user`);
         }
