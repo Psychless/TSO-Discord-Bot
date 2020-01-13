@@ -39,14 +39,14 @@ exports.run = (client, message, args, config) => {
         const inputLane = args[1].trim().capitalize();
 
         // Validate rank
-        const rankRole = message.guild.roles.find(r => inputRank in config.squadElos && r.name.toLowerCase() === inputRank)
-        if(!rankRole) {
+        const rankRole = utils.findRoleByName(message, inputRank);
+        if(!rankRole || !config.squadEligibleRanks.includes(inputRank.toLowerCase())) {
             utils.rejectRankInput(message, inputRank.toLowerCase());
             return;
         }
 
         // Validate lane
-        const laneRole = message.guild.roles.find(r => r.name.toLowerCase() === inputLane.toLowerCase())
+        const laneRole = utils.findRoleByName(message, inputLane);
         if(!laneRole) {
             utils.rejectRoleInput(message, inputLane.toLowerCase());
             return;
@@ -56,7 +56,7 @@ exports.run = (client, message, args, config) => {
             // Filter all users with no squad and the desired rank & lane
             let playerList = [];
             
-            const isNotSquadRole = (role) => !config.squadRoles.includes(role.name);
+            const isNotSquadRole = (role) => ! config.squads.find(s => role.id === s.roleID);
             message.guild.members.forEach(user => {
                 if(user.roles.find(r => r.id === rankRole.id) && 
                     user.roles.find(r => r.id === laneRole.id) &&
@@ -75,7 +75,7 @@ exports.run = (client, message, args, config) => {
             const playersPerPage = config.playersPerListPage; // Players shown per page
             const minPage = 1;
             const maxPage = Math.ceil(playerList.length / playersPerPage);
-            let curPage = minPage;
+            let curPage = (maxPage > 0) ? minPage : 0;
 
             // Create embed
             let embed = new Discord.RichEmbed()

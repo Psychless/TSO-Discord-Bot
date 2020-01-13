@@ -38,7 +38,7 @@ exports.run = (client, message, args, config) => {
         const inputTimezone = args[4].trim().toUpperCase();
 
         // Validate lane input and assign corresponding lane role
-        const laneRole = message.guild.roles.find(r => r.name.toLowerCase() === inputLane.toLowerCase())
+        const laneRole = utils.findRoleByName(message, inputLane);
         let addLaneRole = false;
         if(!laneRole) {
             utils.rejectRoleInput(message, inputLane.toLowerCase());
@@ -50,7 +50,14 @@ exports.run = (client, message, args, config) => {
         }
 
         // Validate rank input and assign corresponding squad role
-        let squadRole = message.guild.roles.find(r => r.name === config.squadElos[inputRank.toLowerCase()])
+        let squad;
+        let squadRole;
+        if(utils.isValidRank(inputRank)){
+            squad = utils.findSquadByRank(inputRank);
+            if(squad) {
+                squadRole = utils.findRoleByID(message, squad.roleID);
+            }
+        }
         let addSquadRole = false;
         if(!squadRole) {
             utils.rejectRankInput(message, inputRank.toLowerCase());
@@ -68,7 +75,8 @@ exports.run = (client, message, args, config) => {
             return;
         } else {
             if(inputRegion !== 'EUW'){
-                squadRole = message.guild.roles.find(r => r.name === 'Wildcard Squad');
+                squad = utils.findSquadByName('Wildcard Squad');
+                squadRole = utils.findRoleByName(message, 'Wildcard Squad');
             }
         }
 
@@ -76,32 +84,38 @@ exports.run = (client, message, args, config) => {
         const embed = new Discord.RichEmbed()
             .setAuthor(message.member.displayName, message.author.avatarURL)
             .setDescription(`
-                IGN: ${inputIGN}
-                Role: ${inputLane}
-                Rank: ${inputRank}
-                Region: ${inputRegion}
-                Timezone: ${inputTimezone}
-                Squad: ${squadRole.name}
+                **IGN**: ${inputIGN}
+                **Role**: ${inputLane}
+                **Rank**: ${inputRank}
+                **Region**: ${inputRegion}
+                **Timezone**: ${inputTimezone}
+                **Squad**: ${squad.name}
             `)
-            .setColor(config.embedColour);
+            .setColor(config.embedColour)
+            .setFooter(`Squad captain! To see this info again, use command - $show @${message.member.displayName}`);
 
         // Assign squad and lane roles
         if(addLaneRole) {
             utils.cleanLaneRoles(message, laneRole);
             message.member.addRole(laneRole);
-            message.channel.send(`User has been assigned as **${laneRole.name}** and given the role`);
+            //message.channel.send(`${message.member.displayName} assigned as **${laneRole.name}** and given the role`);
         }
 
         if(addSquadRole) {
             utils.cleanSquadRoles(message, squadRole);
             message.member.addRole(squadRole);
-            if(addSquadRole) {message.channel.send(`User has been assigned to **${squadRole.name}** and given the role`);}
+            //if(addSquadRole) {message.channel.send(`${message.member.displayName} assigned to **${squad.name}** and given the role`);}
         }
 
         // Bot saved data output
         const data = JSON.parse(fs.readFileSync(`./data/data.json`));
         let isUpdate = data[message.author.id] ? true : false;
         message.channel.send(`${isUpdate ? `Updated` : `Registered`} user info:`, {embed});
+
+        // Send announcement in the assigned squad's chat room
+        const squadChannel = message.guild.channels.get(squad.mainChatID);
+        squadChannel.send(`<@&${config.roleID_squadcap}>\nPlease welcome <@${message.author.id}> to the ${squad.name}!\nYour squad captain should contact you soon about team placements!`);
+        squadChannel.send({embed});
 
         // Data save
         data[message.author.id] = [message.member.displayName, inputIGN, inputLane, inputRank, inputRegion, inputTimezone];

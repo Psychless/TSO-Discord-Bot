@@ -11,7 +11,7 @@ exports.run = (client, message, args, config) => {
 
         const rep = JSON.parse(fs.readFileSync(`./data/rolerep.json`));
 
-        const roles = message.guild.roles.filter(role => config.squadRoles.includes(role.name)).array();
+        const roles = message.guild.roles.filter(role => config.squads.find(squad => squad.name === role.name)).array();
         let squads = [];
 
         for (const role of roles) {

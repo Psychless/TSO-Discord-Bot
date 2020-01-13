@@ -4,21 +4,46 @@
 	"embedColour": "0x9400D3",
 	"botChannel": "bot-notifications",
 
-	"rolename_dev": "Developer",
-	"rolename_squadcap": "Squad Captain",
+	"roleID_dev": "632338811493416970",
+	"roleID_squadcap": "598269732155818015",
 
 	"playersPerListPage": 25,
 	"playerListControlTime": 60000,
 
-	"squadElos": {
-		"gold": "TSO Academy",
-		"platinum": "Gamma Squad",
-		"diamond": "Alpha Squad",
-		"master": "Sovereign Squad",
-		"grandmaster": "Sovereign Squad",
-		"challenger": "Sovereign Squad"
-	},
-	"squadRoles": ["TSO Academy", "Gamma Squad", "Alpha Squad", "Sovereign Squad", "Wildcard Squad"],
+	"squads": [
+		{
+			"name": "Sovereign Squad",
+			"roleID": "657720126690557972",
+			"mainChatID": "657721332439449611",
+			"eloRange": ["master", "grandmaster", "challenger"]
+		},
+		{
+			"name": "Alpha Squad",
+			"roleID": "263896771170664459",
+			"mainChatID": "597121948870246400",
+			"eloRange": ["diamond"]
+		},
+		{
+			"name": "Gamma Squad",
+			"roleID": "263896059586019339",
+			"mainChatID": "617353289222324255",
+			"eloRange": ["platinum"]
+		},
+		{
+			"name": "TSO Academy",
+			"roleID": "378265664131039243",
+			"mainChatID": "619255708868673536",
+			"eloRange": ["gold"]
+		},
+		{
+			"name": "Wildcard Squad",
+			"roleID": "657749981188456457",
+			"mainChatID": "657749857913667624",
+			"eloRange": []
+		}
+	],
+
+	"squadEligibleRanks": ["gold", "platinum", "diamond", "master", "grandmaster", "challenger"],
 	"laneRoles": ["Top", "Jungler", "Middle", "ADC", "Support"],
 	"lolRegions": ["EUW", "EUNE", "NA", "KR", "LAN", "LAS", "OCE", "BR", "TR", "RU"]
 }

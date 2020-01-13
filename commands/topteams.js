@@ -19,7 +19,7 @@ exports.run = (client, message, args, config) => {
         const teams = [];
         for (const [key, val] of Object.entries(rep)) {
             const role = message.guild.roles.get(key);
-            if(!config.squadRoles.includes(role.name)){
+            if(!config.squads.find(squad => squad.name === role.name)){
                 teams.push({name: role.name, rep: val});
             }
         }

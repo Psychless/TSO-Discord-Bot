@@ -5,14 +5,16 @@ String.prototype.capitalize = function() {
 }
 
 module.exports = {
+    // Role validations
     isDev: function(member) {
-        return (member.hasPermission(`ADMINISTRATOR`) || member.roles.find(r => r.name === config.rolename_dev))
+        return (member.hasPermission(`ADMINISTRATOR`) || member.roles.find(r => r.id === config.roleID_dev))
     },
 
     isSquadCaptain: function(member) {
-        return (member.roles.find(r => r.name === config.rolename_squadcap))
+        return (member.roles.find(r => r.id === config.roleID_squadcap))
     },
 
+    // Invalid input rejects
     rejectRoleInput(message, roleName) {
         let msg = `Couldn't find lane \`${roleName}\`. Please validate your input\n`
         msg += '**Lanes:** '
@@ -25,8 +27,8 @@ module.exports = {
     rejectRankInput(message, rankName) {
         let msg = `Couldn't find rank \`${rankName}\`. Please validate your input\n`
             msg += '**Ranks:** '
-            Object.entries(config.squadElos).map(([rank]) => {
-                msg += `\`${rank.capitalize()}\` `
+            config.squadEligibleRanks.forEach(function(rank) {
+                msg += `\`${rank.capitalize()}\` `;
             })
             return message.channel.send(msg);
     },
@@ -35,17 +37,60 @@ module.exports = {
         let msg = `Couldn't find region \`${regionName}\`. Please validate your input\n`
             msg += '**Regions:** '
             config.lolRegions.forEach(function(region) {
-                msg += `\`${region}\` `
+                msg += `\`${region}\` `;
             });
             return message.channel.send(msg);
     },
 
+    // Role clears
     cleanLaneRoles: function(message, exceptionRole) {
         cleanRolesFromArray(message, config.laneRoles,exceptionRole);
     },
 
     cleanSquadRoles: function(message, exceptionRole) {
-        cleanRolesFromArray(message, config.squadRoles, exceptionRole);
+        let squadRoles = [];
+        config.squads.forEach(squad => {
+            squadRoles.push(squad.name);
+        });
+
+        cleanRolesFromArray(message, squadRoles, exceptionRole);
+    },
+
+    // Squad object search
+    findSquadByRank: function(rank) {
+        let foundSquad;
+        config.squads.forEach(squad => {
+            if(squad.eloRange.includes(rank.toLowerCase())){
+                foundSquad = squad;
+            }
+        });
+
+        return foundSquad;
+    },
+
+    findSquadByName: function(squadName) {
+        let foundSquad;
+        config.squads.forEach(squad => {
+            if(squad.name === squadName){
+                foundSquad = squad;
+            }
+        });
+
+        return foundSquad;
+    },
+
+    // Config check
+    isValidRank: function(rank) {
+        return config.squadEligibleRanks.includes(rank.toLowerCase());
+    },
+
+    // Guild search
+    findRoleByID: function(message, roleID) {
+        return message.guild.roles.find(r => r.id === roleID);
+    },
+
+    findRoleByName: function(message, roleName) {
+        return message.guild.roles.find(r => r.name.toLowerCase() === roleName.toLowerCase());
     }
 };
 
