@@ -17,6 +17,7 @@ exports.run = (client, message, args, config) => {
             **${config.cmdkey}rep <@role>** - shows the role's ${constants.REP} balance
             **${config.cmdkey}toprep** - shows the users with the highest ${constants.REP}
             **${config.cmdkey}topsquads** - shows the squads with the highest total ${constants.REP}
+            **${config.cmdkey}topteams** - shows the teams with the highest total ${constants.REP}
             **${config.cmdkey}loot** - shows a list of all the items available for purchase
             **${config.cmdkey}buyloot <item index>** - buys the item and informs the admin
             **${config.cmdkey}roles** - shows a list of roles available for purchase
