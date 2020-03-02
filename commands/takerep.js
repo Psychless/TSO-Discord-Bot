@@ -9,7 +9,7 @@ exports.run = (client, message, args, config) => {
             return;
         }
 
-        if (!utils.isDev) {
+        if (!utils.isDev(message.member)) {
             return;
         }
 
