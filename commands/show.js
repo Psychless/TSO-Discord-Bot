@@ -50,8 +50,7 @@ exports.run = (client, message, args, config) => {
                 **IGN**: ${userData[1]}
                 **Role**: ${userData[2]}
                 **Rank**: ${userData[3]}
-                **Region**: ${userData[4]}
-                **Timezone**: ${userData[5]}
+                **Timezone**: ${userData[4]}
             `)
             .setColor(config.embedColour);
 

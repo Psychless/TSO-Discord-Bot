@@ -26,16 +26,15 @@ exports.run = (client, message, args, config) => {
 
         // Gather args and verify arg count
         args = message.content.slice(config.cmdkey.length + 'register'.length + 1).split(',');
-        if (args.length !== 5) {
-            return message.channel.send(`Usage: ${config.cmdkey}register IGN, lane, rank, region, timezone`);
+        if (args.length !== 4) {
+            return message.channel.send(`Usage: ${config.cmdkey}register IGN, lane, rank, timezone`);
         }
 
         // Prepare user input
         const inputIGN = args[0];
         const inputLane = args[1].trim().capitalize();
         const inputRank = args[2].trim().capitalize();
-        const inputRegion = args[3].trim().toUpperCase();
-        const inputTimezone = args[4].trim().toUpperCase();
+        const inputTimezone = args[3].trim().toUpperCase();
 
         // Validate lane input and assign corresponding lane role
         const laneRole = utils.findRoleByName(message, inputLane);
@@ -68,18 +67,6 @@ exports.run = (client, message, args, config) => {
             }
         }
 
-        // Validate region input and assign to wildcard squad if not from EUW region
-        if(!config.lolRegions.includes(inputRegion)){
-            addSquadRole = false;
-            utils.rejectRegionInput(message, inputRegion);
-            return;
-        } else {
-            if(inputRegion !== 'EUW'){
-                squad = utils.findSquadByName('Wildcard Squad');
-                squadRole = utils.findRoleByName(message, 'Wildcard Squad');
-            }
-        }
-
         // Prepare embed msg
         const embed = new Discord.RichEmbed()
             .setAuthor(message.member.displayName, message.author.avatarURL)
@@ -87,7 +74,6 @@ exports.run = (client, message, args, config) => {
                 **IGN**: ${inputIGN}
                 **Role**: ${inputLane}
                 **Rank**: ${inputRank}
-                **Region**: ${inputRegion}
                 **Timezone**: ${inputTimezone}
                 **Squad**: ${squad.name}
             `)
@@ -98,13 +84,11 @@ exports.run = (client, message, args, config) => {
         if(addLaneRole) {
             utils.cleanLaneRoles(message, laneRole);
             message.member.addRole(laneRole);
-            //message.channel.send(`${message.member.displayName} assigned as **${laneRole.name}** and given the role`);
         }
 
         if(addSquadRole) {
             utils.cleanSquadRoles(message, squadRole);
             message.member.addRole(squadRole);
-            //if(addSquadRole) {message.channel.send(`${message.member.displayName} assigned to **${squad.name}** and given the role`);}
         }
 
         // Bot saved data output
@@ -118,7 +102,7 @@ exports.run = (client, message, args, config) => {
         squadChannel.send({embed});
 
         // Data save
-        data[message.author.id] = [message.member.displayName, inputIGN, inputLane, inputRank, inputRegion, inputTimezone];
+        data[message.author.id] = [message.member.displayName, inputIGN, inputLane, inputRank, inputTimezone];
         fs.writeFileSync(`./data/data.json`, JSON.stringify(data, null, 4));
     });    
 }

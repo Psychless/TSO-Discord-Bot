@@ -33,15 +33,6 @@ module.exports = {
             return message.channel.send(msg);
     },
 
-    rejectRegionInput(message, regionName){
-        let msg = `Couldn't find region \`${regionName}\`. Please validate your input\n`
-            msg += '**Regions:** '
-            config.lolRegions.forEach(function(region) {
-                msg += `\`${region}\` `;
-            });
-            return message.channel.send(msg);
-    },
-
     // Role clears
     cleanLaneRoles: function(message, exceptionRole) {
         cleanRolesFromArray(message, config.laneRoles,exceptionRole);
@@ -103,6 +94,7 @@ module.exports = {
 function cleanRolesFromArray(message, roleArray, exceptionRole) {
     roleArray.forEach(function(roleName) {
         const role = message.guild.roles.find(r => r.name.toLowerCase() === roleName.toLowerCase());
+        if(!role) { return; }
 
         /*
         Since discord API is async, the exception role might be added while the loop is ongoing

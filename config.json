@@ -33,17 +33,10 @@
 			"name": "TSO Academy",
 			"roleID": "378265664131039243",
 			"mainChatID": "619255708868673536",
-			"eloRange": ["gold"]
-		},
-		{
-			"name": "Wildcard Squad",
-			"roleID": "657749981188456457",
-			"mainChatID": "657749857913667624",
-			"eloRange": []
+			"eloRange": ["silver", "gold"]
 		}
 	],
 
-	"squadEligibleRanks": ["gold", "platinum", "diamond", "master", "grandmaster", "challenger"],
-	"laneRoles": ["Top", "Jungler", "Middle", "ADC", "Support"],
-	"lolRegions": ["EUW", "EUNE", "NA", "KR", "LAN", "LAS", "OCE", "BR", "TR", "RU"]
+	"squadEligibleRanks": ["silver", "gold", "platinum", "diamond", "master", "grandmaster", "challenger"],
+	"laneRoles": ["Top", "Jungler", "Middle", "ADC", "Support"]
 }

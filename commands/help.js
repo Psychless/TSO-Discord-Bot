@@ -11,7 +11,7 @@ exports.run = (client, message, args, config) => {
         embed.setTitle("Commands")
         embed.setDescription(`
             **${config.cmdkey}help** - displays this message
-            **${config.cmdkey}register <IGN>, <role>, <lane>, <server>, <timezone>** - registers you in the database and adds the squad role
+            **${config.cmdkey}register <IGN>, <role>, <lane>, <timezone>** - registers you in the database and adds the squad role
             **${config.cmdkey}rep** - shows your ${constants.REP} balance
             **${config.cmdkey}rep <@user>** - shows the user's ${constants.REP} balance
             **${config.cmdkey}rep <@role>** - shows the role's ${constants.REP} balance
